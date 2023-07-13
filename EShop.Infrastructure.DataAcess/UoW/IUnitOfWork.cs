@@ -1,4 +1,6 @@
-﻿namespace EShop.Infrastructure.DataAcess.UoW
+﻿using System;
+
+namespace EShop.Infrastructure.DataAcess.UoW
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,4 +1,6 @@
-﻿namespace EShop.Core.Domain
+﻿using System;
+
+namespace EShop.Core.Domain
 {
     public class BusinessRuleException : Exception
     {
