@@ -1,33 +1,34 @@
-﻿using EShop.Domain.Interfaces;
+﻿using EShop.Core.Domain.Interfaces;
+using EShop.Domain.Interfaces;
 using EShop.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EShop.Infrastructure.DataAcess.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository, IReaderRepository<Product>, IWriterRepository<Product>
     {
         private readonly EShopContext _context;
 
-        public async Task AddAsync(Product entity)
+        public ProductRepository(EShopContext context)
+        {
+            _context = context;
+        }
+
+        public Task AddAsync(Product entity, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public async Task DeleteAsync(Product entity)
+        public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Product> GetByIdAsync(Guid id)
+        public Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public async Task UpdateAsync(Product entity)
+        public Task UpdateAsync(Product entity, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
