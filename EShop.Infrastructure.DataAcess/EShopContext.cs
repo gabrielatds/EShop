@@ -1,4 +1,6 @@
-﻿using EShop.Domain.Models;
+﻿using EShop.Core.Domain;
+using EShop.Domain.Models;
+using EShop.Infrastructure.DataAcess.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Infrastructure.DataAcess
@@ -8,9 +10,10 @@ namespace EShop.Infrastructure.DataAcess
         public EShopContext(DbContextOptions options) : base(options) { }
         public DbSet<Product> Produtos { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-                optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=EShop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.Ignore<Event>();
         }
     }
 }

@@ -4,7 +4,7 @@ using EShop.Domain.Models;
 
 namespace EShop.Infrastructure.DataAcess.Repositories
 {
-    public class ProductRepository : IProductRepository, IReaderRepository<Product>, IWriterRepository<Product>
+    public class ProductRepository : IProductRepository
     {
         private readonly EShopContext _context;
 

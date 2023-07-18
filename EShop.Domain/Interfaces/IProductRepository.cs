@@ -1,8 +1,9 @@
-﻿using EShop.Domain.Models;
+﻿using EShop.Core.Domain.Interfaces;
+using EShop.Domain.Models;
 
 namespace EShop.Domain.Interfaces
 {
-    public interface IProductRepository
+    public interface IProductRepository : IReaderRepository<Product>, IWriterRepository<Product>
     {
     }
 }
