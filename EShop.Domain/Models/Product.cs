@@ -34,7 +34,7 @@ namespace EShop.Domain.Models
 
         public void Suspend()
         {
-            Status = Status.Suspénded;
+            Status = Status.Suspended;
         }
 
         public void UpdatePrice(decimal preco)

@@ -3,6 +3,6 @@
     public enum Status
     {
         Active,
-        Suspénded
+        Suspended
     }
 }
