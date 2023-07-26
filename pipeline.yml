@@ -5,5 +5,10 @@ stages:
   jobs:
   - job: job1
     steps:
-    - script: echo "Rodando a partir de Template"
-
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Assinatura do Azure 1(1)(6f5391e6-0869-48a4-b92c-9cbbe3e187e9)'
+        appType: 'webApp'
+        WebAppName: 'eshop-dev'
+        packageForLinux: '.'
