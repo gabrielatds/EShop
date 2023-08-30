@@ -5,9 +5,9 @@ variables:
   buildConfiguration: "Release"
 
 stages:
-- stage: Stage Build
+- stage: Stage
   jobs:
-  - job: Job Build
+  - job: Job
     steps:
     - task: UseDotNet@2
       inputs:
