@@ -1,22 +1,38 @@
+trigger: none
+
 variables:
   dotNetVersion: "6.0.x"
   buildConfiguration: "Release"
 
-steps:
-  - task: UseDotNet@2
-    inputs:
-      version: $(dotNetVersion)
-      includePreviewVersions: true
+stages:
+  - stage: Stage Build
+  jobs:
+  - job: Job Build
+    steps:
+      - task: UseDotNet@2
+        inputs:
+          version: $(dotNetVersion)
+          includePreviewVersions: true
 
-  - task: DotNetCoreCLI@2
-    displayName: "Build"
-    inputs:
-      command: "build"
-      arguments: "--configuration $(buildConfiguration)"
-
+      - task: DotNetCoreCLI@2
+        displayName: "Build"
+        inputs:
+          command: "build"
+          arguments: "--configuration $(buildConfiguration)"
+  
+  - stage: Tests
+  jobs:
+  - job: Job Test
+  steps:
   - task: DotNetCoreCLI@2
     displayName: "Test"
     inputs:
       command: "test"
       projects: "**/*Tests/*.csproj"
       arguments: "--configuration $(buildConfiguration)"
+
+
+
+#Tirar o Trigger
+#Dividir em Stages
+#Acrescentar o deploy
