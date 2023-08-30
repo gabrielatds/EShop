@@ -5,31 +5,31 @@ variables:
   buildConfiguration: "Release"
 
 stages:
-- stage: Stage
+- stage: Build
   jobs:
-  - job: Job
+  - job: Build
     steps:
     - task: UseDotNet@2
       inputs:
         version: $(dotNetVersion)
         includePreviewVersions: true
 
-    # - task: DotNetCoreCLI@2
-    #   displayName: "Build"
-    #   inputs:
-    #     command: "build"
-    #     arguments: "--configuration $(buildConfiguration)"
+    - task: DotNetCoreCLI@2
+      displayName: "Build"
+      inputs:
+        command: "build"
+        arguments: "--configuration $(buildConfiguration)"
   
-  # - stage: Tests
-  # jobs:
-  # - job: Job Test
-  # steps:
-  # - task: DotNetCoreCLI@2
-  #   displayName: "Test"
-  #   inputs:
-  #     command: "test"
-  #     projects: "**/*Tests/*.csproj"
-  #     arguments: "--configuration $(buildConfiguration)"
+- stage: Tests
+  jobs:
+  - job: Job Test
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: "Test"
+    inputs:
+      command: "test"
+      projects: "**/*Tests/*.csproj"
+      arguments: "--configuration $(buildConfiguration)"
 
 
 
