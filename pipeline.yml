@@ -9,16 +9,16 @@ stages:
   jobs:
   - job: Job Build
     steps:
-      - task: UseDotNet@2
-        inputs:
-          version: $(dotNetVersion)
-          includePreviewVersions: true
+    - task: UseDotNet@2
+      inputs:
+        version: $(dotNetVersion)
+        includePreviewVersions: true
 
-      - task: DotNetCoreCLI@2
-        displayName: "Build"
-        inputs:
-          command: "build"
-          arguments: "--configuration $(buildConfiguration)"
+    - task: DotNetCoreCLI@2
+      displayName: "Build"
+      inputs:
+        command: "build"
+        arguments: "--configuration $(buildConfiguration)"
   
   # - stage: Tests
   # jobs:
