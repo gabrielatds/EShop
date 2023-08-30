@@ -5,7 +5,7 @@ variables:
   buildConfiguration: "Release"
 
 stages:
-  - stage: Stage Build
+- stage: Stage Build
   jobs:
   - job: Job Build
     steps:
@@ -14,11 +14,11 @@ stages:
         version: $(dotNetVersion)
         includePreviewVersions: true
 
-    - task: DotNetCoreCLI@2
-      displayName: "Build"
-      inputs:
-        command: "build"
-        arguments: "--configuration $(buildConfiguration)"
+    # - task: DotNetCoreCLI@2
+    #   displayName: "Build"
+    #   inputs:
+    #     command: "build"
+    #     arguments: "--configuration $(buildConfiguration)"
   
   # - stage: Tests
   # jobs:
