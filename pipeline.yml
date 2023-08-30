@@ -5,9 +5,9 @@ variables:
   buildConfiguration: "Release"
 
 stages:
-- stage: Build
+- stage: SBuild
   jobs:
-  - job: Build
+  - job: JBuild
     steps:
     - task: UseDotNet@2
       inputs:
@@ -20,9 +20,9 @@ stages:
         command: "build"
         arguments: "--configuration $(buildConfiguration)"
   
-- stage: Tests
+- stage: STests
   jobs:
-  - job: Job Test
+  - job: JTest
     steps:
     - task: DotNetCoreCLI@2
       displayName: "Test"
