@@ -31,8 +31,4 @@ stages:
         projects: "**/*Tests/*.csproj"
         arguments: "--configuration $(buildConfiguration)"
 
-
-
-#Tirar o Trigger
-#Dividir em Stages
-#Acrescentar o deploy
+ 

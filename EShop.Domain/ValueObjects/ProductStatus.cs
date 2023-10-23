@@ -1,6 +1,6 @@
 ﻿namespace EShop.Domain.ValueObjects
 {
-    public enum Status
+    public enum ProductStatus
     {
         Active,
         Suspended

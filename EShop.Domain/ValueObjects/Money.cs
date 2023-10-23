@@ -1,4 +1,6 @@
-﻿namespace EShop.Core.Domain.Models
+﻿using EShop.Core.Domain.ValueObjects;
+
+namespace EShop.Domain.ValueObjects
 {
     public class Money : ValueObject<Money>
     {

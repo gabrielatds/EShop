@@ -4,7 +4,7 @@ using EShop.Domain.ValueObjects;
 using System;
 using Xunit;
 
-namespace EShop.Domain.Test.ProductTests
+namespace EShop.Domain.Test.Models
 {
     public class ProductTests
     {
@@ -26,7 +26,7 @@ namespace EShop.Domain.Test.ProductTests
             Assert.Equal(description, product.Description);
             Assert.Equal(Category.Eletronic, product.Category);
             Assert.Equal(price, product.Price.Value);
-            Assert.Equal(Status.Active, product.Status);
+            Assert.Equal(ProductStatus.Active, product.ProductStatus);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace EShop.Domain.Test.ProductTests
             product.Activate();
 
             //Assert
-            Assert.Equal(Status.Active, product.Status);
+            Assert.Equal(ProductStatus.Active, product.ProductStatus);
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace EShop.Domain.Test.ProductTests
             product.Suspend();
 
             //Assert
-            Assert.Equal(Status.Suspended, product.Status);
+            Assert.Equal(ProductStatus.Suspended, product.ProductStatus);
         }
 
         [Fact]

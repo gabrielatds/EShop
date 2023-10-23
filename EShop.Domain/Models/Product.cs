@@ -7,11 +7,11 @@ namespace EShop.Domain.Models
 {
     public class Product : Entity
     {
-        public Category Category { get; set; }
-        public Money Price { get; set; }
-        public string Description { get; set; }
-        public string Name { get; set; }
-        public Status Status { get; set; }
+        public Category Category { get; private set; }
+        public Money Price { get; private set; }
+        public string Description { get; private set; }
+        public string Name { get; private set; }
+        public ProductStatus ProductStatus { get; private set; }
 
         private Product()
         {
@@ -24,22 +24,22 @@ namespace EShop.Domain.Models
             Description = description ?? throw new ArgumentNullException(nameof(description));
             Price = new Money(price);
             Category = (Category)Enum.Parse(typeof(Category), category);
-            Status = Status.Active;
+            ProductStatus = ProductStatus.Active;
         }
 
         public void Activate()
         {
-            Status = Status.Active;
+            ProductStatus = ProductStatus.Active;
         }
 
         public void Suspend()
         {
-            Status = Status.Suspended;
+            ProductStatus = ProductStatus.Suspended;
         }
 
         public void UpdatePrice(decimal preco)
         {
-            if (Status != Status.Active) throw new BusinessRuleException("Product has to be active!");
+            if (ProductStatus != ProductStatus.Active) throw new BusinessRuleException("Product has to be active!");
 
             Price = new Money(preco);
 
