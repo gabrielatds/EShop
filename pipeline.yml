@@ -31,6 +31,7 @@
           arguments: "--configuration $(buildConfiguration)"
 
       - task: DotNetCoreCLI@2
+        displayName: "Publish"
         inputs:
           command: 'publish'
           publishWebProjects: false
