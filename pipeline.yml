@@ -23,10 +23,6 @@
           command: "build"
           arguments: "--configuration $(buildConfiguration)"
     
-  - stage: Tests
-    jobs:
-    - job: Test
-      steps:
       - task: DotNetCoreCLI@2
         displayName: "Test"
         inputs:
@@ -34,3 +30,10 @@
           projects: "**/*Tests/*.csproj"
           arguments: "--configuration $(buildConfiguration)"
 
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'publish'
+          publishWebProjects: false
+          zipAfterPublish: false
+          modifyOutputPath: false
+          projects: "**/*.csproj"
