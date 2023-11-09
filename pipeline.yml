@@ -33,17 +33,4 @@
           command: "test"
           projects: "**/*Tests/*.csproj"
           arguments: "--configuration $(buildConfiguration)"
-          
-
-  - stage: Upload Artifact
-    jobs:
-    - job: Upload
-      steps:
-      - task: DotNetCoreCLI@2
-        inputs:
-          command: 'publish'
-          publishWebProjects: true
-          zipAfterPublish: false
-          modifyOutputPath: false
-          projects: "**/*.csproj"
 
