@@ -1,38 +1,49 @@
-trigger: none
+  trigger: none
 
-variables:
-  dotNetVersion: "6.0.x"
-  buildConfiguration: "Release"
+  variables:
+    dotNetVersion: "6.0.x"
+    buildConfiguration: "Release"
 
-stages:
-- stage: Build
-  jobs:
-  - job: Juild
-    steps:
-    - task: UseDotNet@2
-      inputs:
-        version: $(dotNetVersion)
-        includePreviewVersions: true
+  stages:
+  - stage: Build
+    jobs:
+    - job: Build
+      steps:
+      - task: UseDotNet@2
+        inputs:
+          version: $(dotNetVersion)
+          includePreviewVersions: true
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'restore'
+          feedsToUse: 'select'
+      - task: DotNetCoreCLI@2
+        displayName: "Build"
+        inputs:
+          command: "build"
+          arguments: "--configuration $(buildConfiguration)"
+    
+  - stage: Tests
+    jobs:
+    - job: Test
+      steps:
+      - task: DotNetCoreCLI@2
+        displayName: "Test"
+        inputs:
+          command: "test"
+          projects: "**/*Tests/*.csproj"
+          arguments: "--configuration $(buildConfiguration)"
+          
 
-    - task: DotNetCoreCLI@2
-      displayName: "Build"
-      inputs:
-        command: "build"
-        arguments: "--configuration $(buildConfiguration)"
-  
-- stage: Tests
-  jobs:
-  - job: Test
-    steps:
-    - task: DotNetCoreCLI@2
-      displayName: "Test"
-      inputs:
-        command: "test"
-        projects: "**/*Tests/*.csproj"
-        arguments: "--configuration $(buildConfiguration)"
+  - stage: Upload Artifact
+    jobs:
+    - job: Upload
+      steps:
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'publish'
+          publishWebProjects: true
+          zipAfterPublish: false
+          modifyOutputPath: false
+          projects: "**/*.csproj"
 
-
-
-#Tirar o Trigger
-#Dividir em Stages
-#Acrescentar o deploy
