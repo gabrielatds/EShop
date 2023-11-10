@@ -3,7 +3,7 @@
   variables:
     dotNetVersion: "6.0.x"
     buildConfiguration: "Release"
-    project: '**/EShop.Infrastructure.API/EShop.Infrastructure.API.csproj'
+    project: "**/EShop.Infrastructure.API.csproj"
     artifactName: eshop-api
 
   stages:
