@@ -38,7 +38,7 @@
           command: 'publish'
           publishWebProjects: false
           zipAfterPublish: false
-          projects: "$(project)"
+          projects: "**/*.csproj"
           arguments: "--configuration $(buildConfiguration) --o $(Build.ArtifactStagingDirectory)"
         
       - task: PublishBuildArtifacts@1
