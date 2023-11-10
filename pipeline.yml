@@ -1,9 +1,9 @@
   trigger: none
 
   variables:
-    dotNetVersion: "6.0.x"
-    buildConfiguration: "Release"
-    project: "**/EShop.Infrastructure.API.csproj"
+    dotNetVersion: '6.0.x'
+    buildConfiguration: 'Release'
+    project: 'EShop.Infrastructure.API/EShop.Infrastructure.API.csproj'
     artifactName: eshop-api
 
   stages:
@@ -20,44 +20,44 @@
           command: 'restore'
           feedsToUse: 'select'
       - task: DotNetCoreCLI@2
-        displayName: "Build"
+        displayName: 'Build'
         inputs:
-          command: "build"
-          arguments: "--configuration $(buildConfiguration)"
+          command: 'build'
+          arguments: '--configuration $(buildConfiguration)'
     
       - task: DotNetCoreCLI@2
-        displayName: "Test"
+        displayName: 'Test'
         inputs:
-          command: "test"
-          projects: "**/*Tests/*.csproj"
-          arguments: "--configuration $(buildConfiguration)"
+          command: 'test'
+          projects: '**/*Tests/*.csproj'
+          arguments: '--configuration $(buildConfiguration)'
         
       - task: CmdLine@2
         inputs:
           script: |
-            echo "Structure of work folder of this pipeline:"
+            echo 'Structure of work folder of this pipeline:'
             tree $(Agent.WorkFolder)/1
 
-            echo "Build.ArtifactStagingDirectory:" 
-            echo "$(Build.ArtifactStagingDirectory)"
+            echo 'Build.ArtifactStagingDirectory:' 
+            echo '$(Build.ArtifactStagingDirectory)'
 
-            echo "Build.BinariesDirectory:" 
-            echo "$(Build.BinariesDirectory)"
+            echo 'Build.BinariesDirectory:' 
+            echo '$(Build.BinariesDirectory)'
 
-            echo "Build.SourcesDirectory:"
-            echo "$(Build.SourcesDirectory)"
+            echo 'Build.SourcesDirectory:'
+            echo '$(Build.SourcesDirectory)'
 
       - task: DotNetCoreCLI@2
-        displayName: "Publish"
+        displayName: 'Publish'
         inputs:
           command: 'publish'
           publishWebProjects: false
           zipAfterPublish: false
-          projects: "$(project)"
-          arguments: "-c $(buildConfiguration) -r $(targetRuntime) --self-contained --force -o $(Build.ArtifactStagingDirectory)"
+          projects: '$(project)'
+          arguments: '-c $(buildConfiguration) -r $(targetRuntime) --self-contained --force -o $(Build.ArtifactStagingDirectory)'
         
       - task: PublishBuildArtifacts@1
-        displayName: "Upload Artifacts"
+        displayName: 'Upload Artifacts'
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: '$(eshop-api)'
