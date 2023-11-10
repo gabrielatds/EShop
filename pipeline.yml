@@ -3,6 +3,8 @@
   variables:
     dotNetVersion: "6.0.x"
     buildConfiguration: "Release"
+    project: EShop.Infrastructure.API/EShop.Infrastructure.API.csproj
+    artifactName: eshop-api
 
   stages:
   - stage: Build
@@ -36,5 +38,12 @@
           command: 'publish'
           publishWebProjects: false
           zipAfterPublish: false
-          modifyOutputPath: false
-          projects: "**/*.csproj"
+          projects: "$(project)"
+          arguments: "--configuration $(buildConfiguration) --o $(Build.ArtifactStagingDirectory)"
+        
+      - task: PublishBuildArtifacts@1
+        displayName: "Upload Artifacts"
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: '$(eshop-api)'
+          publishLocation: 'Container'
