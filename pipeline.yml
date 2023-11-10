@@ -38,8 +38,8 @@
           command: 'publish'
           publishWebProjects: false
           zipAfterPublish: false
-          projects: "**/*.csproj"
-          arguments: "--configuration $(buildConfiguration) --o $(Build.ArtifactStagingDirectory)"
+          projects: "$(project)"
+          arguments: "-c $(buildConfiguration) -r $(targetRuntime) --self-contained --force -o $(Build.ArtifactStagingDirectory)"
         
       - task: PublishBuildArtifacts@1
         displayName: "Upload Artifacts"
