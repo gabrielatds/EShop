@@ -1,34 +1,49 @@
-trigger: none
+  trigger: none
 
-variables:
-  dotNetVersion: "6.0.x"
-  buildConfiguration: "Release"
+  variables:
+    dotNetVersion: '6.0.x'
+    buildConfiguration: 'Release'
+    project: 'EShop.Infrastructure.API/EShop.Infrastructure.API.csproj'
+    artifactName: eshop-api
 
-stages:
-- stage: Build
-  jobs:
-  - job: Juild
-    steps:
-    - task: UseDotNet@2
-      inputs:
-        version: $(dotNetVersion)
-        includePreviewVersions: true
-
-    - task: DotNetCoreCLI@2
-      displayName: "Build"
-      inputs:
-        command: "build"
-        arguments: "--configuration $(buildConfiguration)"
-  
-- stage: Tests
-  jobs:
-  - job: Test
-    steps:
-    - task: DotNetCoreCLI@2
-      displayName: "Test"
-      inputs:
-        command: "test"
-        projects: "**/*Tests/*.csproj"
-        arguments: "--configuration $(buildConfiguration)"
-
- 
+  stages:
+  - stage: Build
+    jobs:
+    - job: Build
+      steps:
+      - task: UseDotNet@2
+        inputs:
+          version: $(dotNetVersion)
+          includePreviewVersions: true
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'restore'
+          feedsToUse: 'select'
+      - task: DotNetCoreCLI@2
+        displayName: 'Build'
+        inputs:
+          command: 'build'
+          arguments: '--configuration $(buildConfiguration)'
+    
+      - task: DotNetCoreCLI@2
+        displayName: 'Test'
+        inputs:
+          command: 'test'
+          projects: '**/*Tests/*.csproj'
+          arguments: '--configuration $(buildConfiguration)'
+        
+      - task: DotNetCoreCLI@2
+        displayName: 'Publish'
+        inputs:
+          command: 'publish'
+          publishWebProjects: false
+          zipAfterPublish: false
+          projects: '$(project)'
+          arguments: '-c $(buildConfiguration) -r $(targetRuntime) --self-contained --force -o $(Build.ArtifactStagingDirectory)'
+        
+      - task: PublishBuildArtifacts@1
+        displayName: 'Upload Artifacts'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: '$(eshop-api)'
+          publishLocation: 'Container'
